@@ -1,0 +1,48 @@
+.containerCard{
+    display: grid;
+     justify-items: center;
+     /* align-content: center; */
+    max-width: 450px;
+    background-color:#5D8D7B;
+    color: white;
+    border: 1px solid #6B462D;
+    border-radius: 3px;
+    padding: 10px;
+    gap: 5px;
+   
+}
+.divCard{
+    margin: 5px;
+}
+/* a tag span dos cards  */
+
+.spanCard{
+    margin: 5px;
+    border: 1px solid white;
+    padding: 5px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+.alerta{
+    border-color: #F6E05E;
+    color: #F6E05E;
+    /* background-color: rgb(233, 233, 153); */
+    font-weight: 600;
+}
+.grave{
+    border-color: #DC2626;
+    color: #DC2626;
+    background: rgb(245, 123, 123);
+    font-weight: 600;
+}
+
+/* resultado dos valores card  */
+.valoresCard{
+
+    margin-top: 10px;
+    padding: 15px;
+    /* background-color: rebeccapurple; */
+    border: 1px solid white;
+    border-radius: 3px;
+    color: white;
+}
