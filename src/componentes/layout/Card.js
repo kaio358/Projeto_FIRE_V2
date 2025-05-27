@@ -58,7 +58,7 @@ function Card(props) {
                 </span>
             </div>
 
-            {mouseEstaSobre? <div className={styles.valoresCard} >{valores}</div> :''} 
+            {mouseEstaSobre? <div className={`${styles.valoresCard} ${styles[props.customClass]}`} >{valores}</div> :''} 
         </div>
     )
 }
