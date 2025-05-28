@@ -14,6 +14,7 @@ function Login() {
                     <input 
                         type="text" 
                         id="nomeUsuario" 
+                        name='nome'
                         placeholder="Nome de usuário" 
                         className={styles.inputLogin}
                     />
@@ -24,6 +25,7 @@ function Login() {
                     <input 
                         type="password" 
                         id="senha" 
+                        name='senha'
                         placeholder="Senha" 
                         className={styles.inputLogin}
                     />
