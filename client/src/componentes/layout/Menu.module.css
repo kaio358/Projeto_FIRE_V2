@@ -20,6 +20,9 @@
     color: #E67E22;
     border-bottom: 2.5px solid #E67E22;
 }
+.icone_site{
+    width: 48px;
+}
 
 a{
       text-decoration: none;

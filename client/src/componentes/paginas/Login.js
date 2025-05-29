@@ -33,10 +33,10 @@ function Login() {
                 
                 <button className={styles.entrar} type="submit">Entrar</button>
 
-                {/* <div className={styles.linkAuxiliar}>
+                <div className={styles.linkAuxiliar}>
                     <p><Link to="/esqueceu-senha">Esqueceu a senha?</Link></p>
-                    <p>Não tem uma conta? <Link to="/cadastro">Cadastre-se</Link></p>
-                </div> */}
+                    {/* <p>Não tem uma conta? <Link to="/cadastro">Cadastre-se</Link></p> */}
+                </div>
             </form>
         </div>
     )
