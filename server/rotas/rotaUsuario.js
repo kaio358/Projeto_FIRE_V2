@@ -1,12 +1,18 @@
 const express = require("express")
-const rota = express()
+const rota = express.Router();
 
 // segurança
-const jwt = require("jose")
+const { SignJWT } = require('jose');
 
+const { TextEncoder } = require('util'); 
+const jwtSecretString = process.env.JWT_SECRET;
+if (!jwtSecretString) {
+    console.error("FATAL ERROR: JWT_SECRET não está definido nas variáveis de ambiente.");
+    process.exit(1); // Ou lide com isso de outra forma, mas não continue sem segredo
+}
+const JWT_SECRET_KEY = new TextEncoder().encode(jwtSecretString);
+const JWT_ALGORITHM = 'HS256';
 
-
-// Comandos para o mysql
 const Usuario = require("../modelos/Usuario")
 
 rota.post("/login",async (req,res)=>{
@@ -19,22 +25,38 @@ rota.post("/login",async (req,res)=>{
     }
 
     const usuario = await Usuario.login(nome,senha)
-
+ 
     if(usuario){
-        res.json({ mensagem: 'Login bem-sucedido!', usuario: usuario });
+        const payload = {
+             userId: usuario.id, 
+             cargo: usuario.cargo
+        }
+        const token = await new SignJWT(payload)
+                .setProtectedHeader({ alg: JWT_ALGORITHM })
+                .setIssuedAt() 
+                .setExpirationTime('2h') 
+                .sign(JWT_SECRET_KEY);
+
+        res.json({ mensagem: 'Login bem-sucedido!',token:token ,usuario: usuario });
         
     }else{
         res.status(401).json({ mensagem: 'Nome de usuário ou senha inválidos.' });
     }    
-    // jwt.SignJWT({})
+   
 })
 
-rota.post("/cadastro", (req,res)=>{
+rota.post("/cadastro", async (req,res)=>{
     const {nome,email,senha,cargo} = req.body
-
+  
+    
      if (!nome || !senha || !email || !cargo) {
         return res.status(400).json({ mensagem: 'Nome, senha e email são obrigatórios.' });
     }
+
+    const usuarioCadastro = await Usuario.cadastro(nome,email,senha,cargo)
+    
+    res.status(200).json(usuarioCadastro)
+    
 
 })
 

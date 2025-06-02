@@ -37,11 +37,11 @@ class Usuario {
                 }
             } catch (error) {
                 console.error("Erro no processo de login:", error);
-                throw error; // Propaga o erro para ser tratado pelo chamador (rota)
+                throw error; 
             }
         }
     async cadastro(nome,email,senha, cargo){
-        const saltRounds = 10; // Número de rounds para o salt (10-12 é um bom começo)
+        const saltRounds = 10;
         try {
             // Gera o hash da senha
             const senhaHash = await bcrypt.hash(senha, saltRounds);
@@ -60,7 +60,7 @@ class Usuario {
             if (error.code === 'ER_DUP_ENTRY') { 
                 throw new Error('Nome de usuário ou email já existe.');
             }
-            throw error; // Propaga outros erros
+            throw error; 
         }
     }
 }
