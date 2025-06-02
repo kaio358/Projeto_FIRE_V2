@@ -8,12 +8,14 @@ const { TextEncoder } = require('util');
 const jwtSecretString = process.env.JWT_SECRET;
 if (!jwtSecretString) {
     console.error("FATAL ERROR: JWT_SECRET não está definido nas variáveis de ambiente.");
-    process.exit(1); // Ou lide com isso de outra forma, mas não continue sem segredo
+    process.exit(1); 
 }
 const JWT_SECRET_KEY = new TextEncoder().encode(jwtSecretString);
 const JWT_ALGORITHM = 'HS256';
 
+// Infra e modelos
 const Usuario = require("../modelos/Usuario")
+const verificarToken = require("../infraestrutura/verificacaoJWT")
 
 rota.post("/login",async (req,res)=>{
 
