@@ -1,7 +1,10 @@
-// Login.js
+
 import { useState } from "react";
 import styles from "./Login.module.css";
 import { Link } from 'react-router-dom';
+
+import { useAuth } from '../funcionalidades/AuthContext';
+
 
 function Login() {
     const apiUrl = process.env.REACT_APP_API_URL ;
@@ -12,32 +15,40 @@ function Login() {
     const [error, setError] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
 
+    // Para Autenticação
+    const { loginAuth } = useAuth();
+
+    const handleSubmit = async (event) => {
+        event.preventDefault(); 
+        setError('');
+        setSuccessMessage('');
+
+        try {
+        const response = await fetch(`${apiUrl}/login`, {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ nome, senha }),
+        });
+
+        const data = await response.json();
+        
+
+        if (!response.ok) {
+            throw new Error(data.mensagem || 'Erro ao fazer login.');
+        }
+        if (data.token && data.usuario) {
+            loginAuth(data.token, data.usuario); // Passa o token e os dados do usuário
+            setSuccessMessage(data.mensagem || 'Login realizado com sucesso!');
+            // Opcional: redirecionar para o dashboard ou página inicial
+            // history.push('/dashboard'); // Se estiver usando React Router com useHistory
+        } else {
+            throw new Error('Resposta da API de login não contém token ou dados do usuário.');
+        }
     
-
-  const handleSubmit = async (event) => {
-    event.preventDefault(); 
-    setError('');
-    setSuccessMessage('');
-
-    try {
-      const response = await fetch(`${apiUrl}/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ nome, senha }),
-      });
-
-      const data = await response.json();
-      
-
-      if (!response.ok) {
-        throw new Error(data.mensagem || 'Erro ao fazer login.');
-      }
-
-        // Login bem-sucedido
-        setSuccessMessage(data.mensagem || 'Login realizado com sucesso!');
-     
+        
+        
         // Limpar campos ou redirecionar
         setNome('');
         setSenha('');
@@ -45,7 +56,7 @@ function Login() {
         } catch (err) {
         setError(err.message);
         }
-    };
+        };
 
     return (
         <div className={styles.fundoLogin}>
