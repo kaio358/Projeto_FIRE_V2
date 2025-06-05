@@ -1,6 +1,5 @@
 
 const { TextEncoder } = require('util');
-const { JWT_SECRET_KEY, JWT_ALGORITHM } = require('../config/jwtConfig'); 
 
 const jwtSecretString = process.env.JWT_SECRET;
 if (!jwtSecretString) {

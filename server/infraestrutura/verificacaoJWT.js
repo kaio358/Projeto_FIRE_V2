@@ -1,7 +1,7 @@
 
 const { jwtVerify } = require('jose');
 
-const { JWT_SECRET_KEY, JWT_ALGORITHM } = require('../config/jwtConfig');  
+const { JWT_SECRET_KEY, JWT_ALGORITHM } = require('./jwtConfig');  
 
 
 
