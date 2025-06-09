@@ -43,7 +43,7 @@
     padding: 12px 15px;
     border: 1px solid #5D8D7B; 
     border-radius: 8px; 
-    font-size: 1em; 
+    font-size: 16px; 
     color: #6B462D; 
     box-sizing: border-box; 
 }
@@ -64,11 +64,11 @@
     border: none; 
     border-radius: 8px; 
     padding: 12px 20px;
-    color: white; /* Texto em branco */
-    font-size: 1.1em; /* Tamanho da fonte ligeiramente maior */
-    font-weight: 700; /* Texto em negrito */
-    cursor: pointer; /* Indica que é clicável */
-    transition: background-color 0.3s ease, transform 0.2s ease; /* Transição suave para hover */
+    color: white;
+    font-size: 1.1em; 
+    font-weight: 700; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .entrar:hover {

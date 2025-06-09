@@ -1,104 +1,113 @@
-
-import { useState } from "react";
+import { useState } from 'react';
 import styles from "./Login.module.css";
-import { Link } from 'react-router-dom';
-
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../funcionalidades/AuthContext';
-
+import Feedback from '../funcionalidades/Feedback';
 
 function Login() {
-    const apiUrl = process.env.REACT_APP_API_URL ;
-    // entradas de valores
-    const [nome,setNome] = useState('')
-    const [senha,setSenha]= useState('')
-    
-    const [error, setError] = useState('');
-    const [successMessage, setSuccessMessage] = useState('');
+    const urlAPI = process.env.REACT_APP_API_URL;
 
-    // Para Autenticação
+    const [nome, setNome] = useState('');
+    const [senha, setSenha] = useState('');
+    const [mensagem, setMensagem] = useState({ texto: '', tipo: '' });
+    const [carregando, setCarregando] = useState(false);
+
+    const fecharMensagem = () => {
+        setMensagem({ texto: '', tipo: '' });
+    };
+
     const { loginAuth } = useAuth();
+    const navegar = useNavigate();
 
-    const handleSubmit = async (event) => {
-        event.preventDefault(); 
-        setError('');
-        setSuccessMessage('');
+    const enviarFormulario = async (evento) => {
+        evento.preventDefault();
+        setCarregando(true);
+        fecharMensagem();
+
+        if (!nome || !senha) {
+            setMensagem({ texto: 'Preencha todos os campos.', tipo: 'error' });
+            setCarregando(false);
+            return;
+        }
 
         try {
-        const response = await fetch(`${apiUrl}/login`, {
-            method: 'POST',
-            headers: {
-            'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ nome, senha }),
-        });
+            const resposta = await fetch(`${urlAPI}/login`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ nome, senha }),
+            });
 
-        const data = await response.json();
-        
+            const dados = await resposta.json();
 
-        if (!response.ok) {
-            throw new Error(data.mensagem || 'Erro ao fazer login.');
-        }
-        if (data.token && data.usuario) {
-            loginAuth(data.token, data.usuario); // Passa o token e os dados do usuário
-            setSuccessMessage(data.mensagem || 'Login realizado com sucesso!');
-            // Opcional: redirecionar para o dashboard ou página inicial
-            // history.push('/dashboard'); // Se estiver usando React Router com useHistory
-        } else {
-            throw new Error('Resposta da API de login não contém token ou dados do usuário.');
-        }
-    
-        
-        
-        // Limpar campos ou redirecionar
-        setNome('');
-        setSenha('');
+            if (!resposta.ok) {
+                throw new Error(dados.mensagem || 'Erro ao fazer login.');
+            }
 
-        } catch (err) {
-        setError(err.message);
+            if (dados.token && dados.usuario) {
+                loginAuth(dados.token, dados.usuario);
+            } else {
+                throw new Error('Resposta da API incompleta.');
+            }
+
+            setMensagem({ texto: 'Login realizado com sucesso! Redirecionando...', tipo: 'success' });
+
+            setNome('');
+            setSenha('');
+            navegar('/');
+        } catch (erro) {
+            setMensagem({ texto: erro.message, tipo: 'error' });
+        } finally {
+            setCarregando(false);
         }
-        };
+    };
 
     return (
-        <div className={styles.fundoLogin}>
-            {/* {error && <p style={{ color: 'red' }}>{error}</p>}
-            {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>} */}
-            <form className={styles.formLogin} onSubmit={handleSubmit} >
-                <h2>Bem-vindo ao FIRE</h2> 
-                <div className={styles.inputGroup}  >
-                    {/* <label htmlFor="nomeUsuario">Usuário/Email:</label>*/}
-                    <input 
-                        type="text" 
-                        id="nomeUsuario" 
-                        name='nome'
-                        placeholder="Nome de usuário" 
-                        className={styles.inputLogin}
-                        value={nome}
-                        onChange={(e)=>setNome(e.target.value)}
-                    />
-                </div>
-                
-                <div className={styles.inputGroup}>
-                    {/* <label htmlFor="senha">Senha:</label> */}
-                    <input 
-                        type="password" 
-                        id="senha" 
-                        name='senha'
-                        placeholder="Senha" 
-                        className={styles.inputLogin}
-                        value={senha}
-                        onChange={(e)=>setSenha(e.target.value)}
-                    />
-                </div>
-                
-                <button className={styles.entrar} type="submit">Entrar</button>
+        <>
+            <Feedback 
+                mensagem={mensagem.texto}
+                tipo={mensagem.tipo}
+                aoFechar={fecharMensagem}
+            />
 
-                <div className={styles.linkAuxiliar}>
-                    <p><Link to="/esqueceu-senha">Esqueceu a senha?</Link></p>
-                    {/* <p>Não tem uma conta? <Link to="/cadastro">Cadastre-se</Link></p> */}
-                </div>
-            </form>
-        </div>
-    )
+            <div className={styles.fundoLogin}>
+                <form className={styles.formLogin} onSubmit={enviarFormulario}>
+                    <h2>Bem-vindo ao FIRE</h2>
+
+                    <div className={styles.inputGroup}>
+                        <input
+                            type="text"
+                            id="nomeUsuario"
+                            name="nome"
+                            placeholder="Nome de usuário"
+                            className={styles.inputLogin}
+                            value={nome}
+                            onChange={(e) => setNome(e.target.value)}
+                        />
+                    </div>
+
+                    <div className={styles.inputGroup}>
+                        <input
+                            type="password"
+                            id="senha"
+                            name="senha"
+                            placeholder="Senha"
+                            className={styles.inputLogin}
+                            value={senha}
+                            onChange={(e) => setSenha(e.target.value)}
+                        />
+                    </div>
+
+                    <button className={styles.entrar} type="submit" disabled={carregando}>
+                        {carregando ? 'Entrando...' : 'Entrar'}
+                    </button>
+
+                    <div className={styles.linkAuxiliar}>
+                        <p><Link to="/esqueceu-senha">Esqueceu a senha?</Link></p>
+                    </div>
+                </form>
+            </div>
+        </>
+    );
 }
 
 export default Login;

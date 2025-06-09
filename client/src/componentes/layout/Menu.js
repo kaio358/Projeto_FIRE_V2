@@ -18,16 +18,19 @@ function Menu() {
 
             <ul className={styles.listaLinks}>
                 <li><Link to="/">Home</Link></li>
-                <li><Link to="/gerenciar">Gerenciar</Link></li>
+                
                 
                 {usuario ? (
                     // Seção do usuário logado DENTRO de um <li>
-                    <li className={styles.itemUsuario}> 
-                        <span className={styles.textoSaudacao}>Olá, {usuario.nome}!</span>
-                        <button onClick={logoutAuth} className={styles.botaoLogout} title="Sair">
-                            <img src={logoutIcon} className={styles.imgLogout} alt="Logout" />
-                        </button>
-                    </li>
+                    <>
+                        <li><Link to="/gerenciar">Gerenciar</Link></li>
+                        <li className={styles.itemUsuario}> 
+                            <span className={styles.textoSaudacao}>Olá, {usuario.nome}!</span>
+                            <button onClick={logoutAuth} className={styles.botaoLogout} title="Sair">
+                                <img src={logoutIcon} className={styles.imgLogout} alt="Logout" />
+                            </button>
+                        </li>
+                    </>
                 ) : (
                     // Links de Login e Cadastro DENTRO de <li>
                     <>
