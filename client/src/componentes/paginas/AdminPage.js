@@ -1,7 +1,8 @@
-
-
-import React, { useState } from 'react';
+import  { useState } from 'react';
+import Menu from '../layout/Menu';
 import { useAuth } from '../funcionalidades/AuthContext';
+import styles from './AdminPage.module.css'; 
+
 
 function AdminPage() {
     const [selectedFile, setSelectedFile] = useState(null);
@@ -11,7 +12,10 @@ function AdminPage() {
     const { token } = useAuth();
 
     const handleFileChange = (event) => {
-        setSelectedFile(event.target.files[0]);
+        const file = event.target.files[0];
+        if (file) {
+            setSelectedFile(file);
+        }
     };
 
     const handleUpload = async () => {
@@ -25,7 +29,7 @@ function AdminPage() {
 
         const formData = new FormData();
         formData.append('arquivo_csv', selectedFile);
-        formData.append('tipoDeDado', tipoDeDado); 
+        formData.append('tipoDeDado', tipoDeDado);
 
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/admin/upload-csv`, {
@@ -38,10 +42,11 @@ function AdminPage() {
 
             if (!response.ok) throw new Error(data.mensagem || 'Falha no upload.');
 
-            setFeedback({ 
-                message: `${data.mensagem} | Lidos: ${data.dados.lidos}, Linhas Afetadas: ${data.dados.linhasAfetadas}`, 
-                type: 'success' 
+            setFeedback({
+                message: `${data.mensagem} | Lidos: ${data.dados.lidos}, Linhas Afetadas: ${data.dados.linhasAfetadas}`,
+                type: 'success'
             });
+            setSelectedFile(null);
 
         } catch (error) {
             setFeedback({ message: error.message, type: 'error' });
@@ -51,34 +56,52 @@ function AdminPage() {
     };
 
     return (
-        <div>
-            <h1>Painel de Administração</h1>
-            <h2>Upload de Dados (.csv)</h2>
-            
-            {feedback.message && <p style={{ color: feedback.type === 'error' ? 'red' : 'green' }}>{feedback.message}</p>}
+        <div className={styles.adminContainer}>
+         
+            <div className={styles.uploadCard}>
+                <h1>Painel de Administração</h1>
+                <p className={styles.subtitle}>Upload de Dados de Queimadas (.csv)</p>
 
-            <div>
-                <label htmlFor="dataTypeSelect">Selecione o tipo de dado:</label>
-                <select 
-                    id="dataTypeSelect" 
-                    value={tipoDeDado} 
-                    onChange={(e) => setTipoDeDado(e.target.value)}
-                >
-                    <option value="historico_brasil">Histórico - Brasil (Geral)</option>
-                    <option value="historico_sp">Histórico - São Paulo (SP)</option>
-                    <option value="historico_rj">Histórico - Rio de Janeiro (RJ)</option>
-                  
-                </select>
+                {/* ### AQUI ESTÁ A MUDANÇA ### */}
+                {/* Renderiza um <p> condicional para feedback, com classes de estilo dinâmicas */}
+                {feedback.message && (
+                    <p className={`${styles.feedbackMessage} ${styles[feedback.type]}`}>
+                        {feedback.message}
+                    </p>
+                )}
+
+                <div className={styles.formGroup}>
+                    <label htmlFor="dataTypeSelect">1. Selecione o tipo de dado:</label>
+                    <select
+                        id="dataTypeSelect"
+                        className={styles.selectInput}
+                        value={tipoDeDado}
+                        onChange={(e) => setTipoDeDado(e.target.value)}
+                    >
+                        <option value="historico_brasil">Histórico - Brasil (Geral)</option>
+                        <option value="historico_sp">Histórico - São Paulo (SP)</option>
+                        <option value="historico_rj">Histórico - Rio de Janeiro (RJ)</option>
+                    </select>
+                </div>
+
+                <div className={styles.formGroup}>
+                    <label htmlFor="fileInput">2. Escolha o arquivo CSV:</label>
+                    <label htmlFor="fileInput" className={styles.fileInputLabel}>
+                        {selectedFile ? selectedFile.name : 'Procurar arquivo...'}
+                    </label>
+                    <input
+                        id="fileInput"
+                        type="file"
+                        accept=".csv"
+                        className={styles.fileInput}
+                        onChange={handleFileChange}
+                    />
+                </div>
+
+                <button onClick={handleUpload} className={styles.uploadButton} disabled={isLoading || !selectedFile}>
+                    {isLoading ? 'Enviando e Processando...' : 'Enviar Arquivo'}
+                </button>
             </div>
-
-            <div>
-                <label htmlFor="fileInput">Selecione o arquivo CSV:</label>
-                <input id="fileInput" type="file" accept=".csv" onChange={handleFileChange} />
-            </div>
-
-            <button onClick={handleUpload} disabled={isLoading || !selectedFile}>
-                {isLoading ? 'Enviando e Processando...' : 'Enviar Arquivo'}
-            </button>
         </div>
     );
 }

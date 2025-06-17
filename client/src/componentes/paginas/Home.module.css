@@ -1,3 +1,49 @@
 .principal{
     background-color: #F9F7F3;
 }
+
+.seletorContainer {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.seletorContainer label {
+    margin-right: 10px;
+    font-weight: bold;
+}
+/* Estilo principal para o nosso <select> customizado */
+.anoSelect {
+    /* Aparência e espaçamento */
+    display: inline-block;
+    padding: 10px 25px ; /* Espaço extra na direita para a seta */
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+    background-color: #ffffff;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+    /* O truque para esconder a seta padrão do navegador */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+/* Estilo quando o select está em foco (clicado) */
+.anoSelect:focus {
+    outline: none;
+    border-color: #22574A; /* Cor verde do seu menu */
+    box-shadow: 0 0 0 3px rgba(34, 87, 74, 0.2);
+}
+
+
+
+.graficoContainer {
+    margin-top: 40px;
+    padding: 20px;
+    /* background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1); */
+}

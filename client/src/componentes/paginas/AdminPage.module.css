@@ -1,0 +1,128 @@
+
+
+.adminContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    background-color: #f8f9fa; 
+    min-height: 100vh;
+}
+
+.uploadCard {
+    width: 100%;
+    max-width: 600px;
+    background-color: #ffffff;
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border-top: 5px solid #22574A; 
+}
+
+.uploadCard h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.uploadCard .subtitle {
+    text-align: center;
+    color: #666;
+    margin-top: 0;
+    margin-bottom: 30px;
+    font-size: 1rem;
+}
+
+
+.feedbackMessage {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    text-align: center;
+    font-weight: 500;
+    box-sizing: border-box;
+    border: 1px solid transparent;
+}
+
+.feedbackMessage.success {
+    background-color: #e9f2ef; 
+    color: #1a4339;
+    border-color: #a3c9bd;
+}
+
+
+.feedbackMessage.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-color: #f5c6cb;
+}
+
+
+
+.formGroup {
+    margin-bottom: 25px;
+}
+
+.formGroup label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    font-size: 1rem;
+    color: #444;
+}
+
+.selectInput, .fileInputLabel {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    background-color: #fdfdfd;
+    cursor: pointer;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    box-sizing: border-box;
+}
+
+.selectInput:focus, .fileInputLabel:hover {
+    outline: none;
+    border-color: #22574A; /* Usa o verde principal no foco/hover */
+    box-shadow: 0 0 0 3px rgba(34, 87, 74, 0.2);
+}
+
+.fileInput {
+    display: none;
+}
+
+.fileInputLabel {
+    text-align: center;
+    color: #495057;
+    border-style: dashed;
+}
+
+.uploadButton {
+    width: 100%;
+    padding: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #22574A; /* <<< Usa o verde principal do seu menu */
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+    margin-top: 10px; /* Adiciona um espaço acima do botão */
+}
+
+.uploadButton:hover:not(:disabled) {
+    background-color: #1a4339; /* Verde mais escuro no hover */
+}
+
+.uploadButton:active:not(:disabled) {
+    transform: scale(0.98);
+}
+
+.uploadButton:disabled {
+    background-color: #999;
+    cursor: not-allowed;
+}

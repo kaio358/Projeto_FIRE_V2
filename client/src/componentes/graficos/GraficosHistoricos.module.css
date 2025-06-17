@@ -1,0 +1,24 @@
+/* GraficosHistoricos.module.css */
+
+.chartContainer {
+    width: 100%;
+    max-width: 900px; 
+    margin: 40px auto; 
+    padding: 25px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.feedbackText {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #555;
+    padding: 40px;
+}
+
+.errorText {
+    composes: feedbackText; /* Herda os estilos de feedbackText */
+    color: rgb(216, 0, 12);
+    font-weight: bold;
+}
