@@ -1,10 +1,14 @@
-.containerEstilo{
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-    gap: 20px;
-    flex-wrap: wrap;
+.containerEstilo {
+    width: 95%; /* Usa uma porcentagem da largura da tela */
+    max-width: 1400px; 
+    
+    
+    margin: 40px auto; 
+    
+    padding: 0 15px; 
+    box-sizing: border-box; 
 }
-.tiposColunas{
+/* Você pode manter esta classe se a usar em outro lugar, caso contrário, pode remover */
+.tiposColunas {
     flex-direction: column;
 }

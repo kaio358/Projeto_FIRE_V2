@@ -72,16 +72,42 @@ function AdminPage() {
 
                 <div className={styles.formGroup}>
                     <label htmlFor="dataTypeSelect">1. Selecione o tipo de dado:</label>
-                    <select
-                        id="dataTypeSelect"
-                        className={styles.selectInput}
-                        value={tipoDeDado}
-                        onChange={(e) => setTipoDeDado(e.target.value)}
-                    >
-                        <option value="historico_brasil">Histórico - Brasil (Geral)</option>
-                        <option value="historico_sp">Histórico - São Paulo (SP)</option>
-                        <option value="historico_rj">Histórico - Rio de Janeiro (RJ)</option>
-                    </select>
+                <select
+                    id="dataTypeSelect"
+                    className={styles.selectInput}
+                    value={tipoDeDado}
+                    onChange={(e) => setTipoDeDado(e.target.value)}
+                >
+                    <option value="historico_brasil">Histórico - Brasil (Geral)</option>
+                    <option value="historico_ac">Histórico - Acre (AC)</option>
+                    <option value="historico_al">Histórico - Alagoas (AL)</option>
+                    <option value="historico_ap">Histórico - Amapá (AP)</option>
+                    <option value="historico_am">Histórico - Amazonas (AM)</option>
+                    <option value="historico_ba">Histórico - Bahia (BA)</option>
+                    <option value="historico_ce">Histórico - Ceará (CE)</option>
+                    <option value="historico_df">Histórico - Distrito Federal (DF)</option>
+                    <option value="historico_es">Histórico - Espírito Santo (ES)</option>
+                    <option value="historico_go">Histórico - Goiás (GO)</option>
+                    <option value="historico_ma">Histórico - Maranhão (MA)</option>
+                    <option value="historico_mt">Histórico - Mato Grosso (MT)</option>
+                    <option value="historico_ms">Histórico - Mato Grosso do Sul (MS)</option>
+                    <option value="historico_mg">Histórico - Minas Gerais (MG)</option>
+                    <option value="historico_pa">Histórico - Pará (PA)</option>
+                    <option value="historico_pb">Histórico - Paraíba (PB)</option>
+                    <option value="historico_pr">Histórico - Paraná (PR)</option>
+                    <option value="historico_pe">Histórico - Pernambuco (PE)</option>
+                    <option value="historico_pi">Histórico - Piauí (PI)</option>
+                    <option value="historico_rj">Histórico - Rio de Janeiro (RJ)</option>
+                    <option value="historico_rn">Histórico - Rio Grande do Norte (RN)</option>
+                    <option value="historico_rs">Histórico - Rio Grande do Sul (RS)</option>
+                    <option value="historico_ro">Histórico - Rondônia (RO)</option>
+                    <option value="historico_rr">Histórico - Roraima (RR)</option>
+                    <option value="historico_sc">Histórico - Santa Catarina (SC)</option>
+                    <option value="historico_sp">Histórico - São Paulo (SP)</option>
+                    <option value="historico_se">Histórico - Sergipe (SE)</option>
+                    <option value="historico_to">Histórico - Tocantins (TO)</option>
+                </select>
+
                 </div>
 
                 <div className={styles.formGroup}>

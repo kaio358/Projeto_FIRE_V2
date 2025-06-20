@@ -14,7 +14,6 @@ router.get('/historico', async (req, res) => {
 
         // Chama o método do nosso modelo para buscar os dados no banco
         const dados = await Historico_agregado.buscarPorLocalidadeEAno(localidade, parseInt(ano, 10));
-        console.log(dados);
         
 
         // Se nenhum dado for encontrado, retorna um array vazio (o que é ok)
@@ -22,6 +21,24 @@ router.get('/historico', async (req, res) => {
 
     } catch (error) {
         console.error("Erro na rota /historico:", error);
+        res.status(500).json({ mensagem: "Erro interno no servidor." });
+    }
+});
+
+router.get('/historico-anual', async (req, res) => {
+    try {
+        const { localidade } = req.query; // Pega a localidade da URL
+
+        if (!localidade) {
+            return res.status(400).json({ mensagem: "O parâmetro 'localidade' é obrigatório." });
+        }
+
+        // Chama o método do modelo que já criamos, passando a localidade dinamicamente
+        const dados = await Historico_agregado.buscarTotalAnualPorLocalidade(localidade.toUpperCase());
+        res.json(dados);
+
+    } catch (error) {
+        console.error("Erro na rota /historico-anual:", error);
         res.status(500).json({ mensagem: "Erro interno no servidor." });
     }
 });

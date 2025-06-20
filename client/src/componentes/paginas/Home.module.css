@@ -2,6 +2,12 @@
     background-color: #F9F7F3;
 }
 
+.divisor {
+    border: none;
+    height: 1px;
+    background-color: #e0e0e0;
+    margin: 60px 0;
+}
 .seletorContainer {
     margin: 20px 0;
     text-align: center;
@@ -15,7 +21,7 @@
 .anoSelect {
     /* Aparência e espaçamento */
     display: inline-block;
-    padding: 10px 25px ; /* Espaço extra na direita para a seta */
+    padding: 10px 25px ; 
     font-size: 16px;
     font-weight: 500;
     color: #333;
@@ -43,7 +49,37 @@
 .graficoContainer {
     margin-top: 40px;
     padding: 20px;
-    /* background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1); */
+ 
+}
+
+/* Estilo para cada seção de região (Sudeste, Sul, etc.) */
+
+/* Aumentar o espaçamento entre as seções */
+.geralSection,
+.regionSection {
+    margin-top: 60px; 
+    margin-bottom: 40px; 
+}
+
+/* Ajuste para garantir que as seções não fiquem tão próximas */
+.regionSection {
+    padding-bottom: 40px; 
+}
+
+/* Ajuste da margem entre os gráficos da grade */
+.chartsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 60px; 
+}
+
+/* Adicionando espaçamento ao título da região */
+.regionTitle {
+    margin-bottom: 40px; 
+}
+
+
+.fullWidth {
+    /* Diz ao item para começar na primeira coluna e terminar na última (-1) */
+    grid-column: 1 / -1;
 }

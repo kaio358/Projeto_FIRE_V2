@@ -8,7 +8,7 @@ import {
 // Registra os componentes necessários do Chart.js
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-// NOME DA FUNÇÃO CORRIGIDO para corresponder ao nome do arquivo
+
 function GraficosHistoricos({ localidade, ano }) {
     const [chartData, setChartData] = useState({ datasets: [] });
     const [loading, setLoading] = useState(true);

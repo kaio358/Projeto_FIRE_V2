@@ -53,6 +53,30 @@ class Historico_agregado {
 
         return this.executarQuery(sql, [valores]);
     }
+
+    /**
+         * ### NOVO MÉTODO ###
+         * Busca o total de focos por ano para uma localidade específica.
+         * @param {string} localidade - A localidade a ser buscada (ex: 'BRASIL').
+         * @returns {Promise<Array<{ano: number, total: number}>>}
+    */
+    async buscarTotalAnualPorLocalidade(localidade) {
+        // Seleciona apenas as colunas 'ano' e 'total' e ordena por ano.
+        const sql = `
+            SELECT ano, total 
+            FROM historico_agregado 
+            WHERE localidade = ? 
+            ORDER BY ano ASC;
+        `;
+        
+        try {
+            const resultados = await this.executarQuery(sql, [localidade]);
+            return resultados;
+        } catch (error) {
+            console.error(`Erro ao buscar o total anual para ${localidade}:`, error);
+            throw error;
+        }
+    }
 }
 
 module.exports = new Historico_agregado();
